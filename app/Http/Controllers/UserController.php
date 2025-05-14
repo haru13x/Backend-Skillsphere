@@ -50,8 +50,9 @@ class UserController extends Controller
                     'status' => 1,
                 ]
             );
+            $data = User::with('details')->where('id', $user->id)->first();
             DB::connection('mysql')->commit();
-            return response()->json(['msg' => 'save succesfully', 'data' => $user], 201);
+            return response()->json(['msg' => 'save succesfully', 'user' => $data, 'token' => $user->api_token], 201);
         } catch (\Exception $e) {
             DB::connection('mysql')->rollBack();
 
