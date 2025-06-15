@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Skill;
+use App\Models\Experiences;
+use App\Models\Profile;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -23,7 +25,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetails::class, 'id', 'user_id');
     }
-
+    public function profile(){
+          return $this->hasOne(Profile::class, 'id', 'user_id');
+    }
+    public function skills(){
+          return $this->hasMany(Skill::class, 'id', 'user_id');
+    }
+    public function experiences(){
+          return $this->hasMany(Experiences::class, 'id', 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

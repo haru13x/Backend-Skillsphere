@@ -24,11 +24,17 @@ Route::middleware('auth.token')->group(function () {
     Route::post('/tasks', [MasterController::class, 'store']);
     Route::get('/get-tasks', [MasterController::class, 'index']);
     Route::get('/get-my-project', [MasterController::class, 'myProject']);
+     Route::get('/get-my-task', [MasterController::class, 'myTask']);
     Route::get('/get-applied-project', [MasterController::class, 'AppliedList']);
-
+    Route::post('/setting-up/profile', [UserController::class, 'store_profile']);
+     Route::get('get-profile/{id}', [UserController::class, 'getProfile']);
+     Route::post('store-profile-pic', [UserController::class, 'store_picture']);
     Route::post('/store-proposal', [AppliedWorkController::class, 'store']);
+         Route::post('hire-applicant', [MasterController::class, 'hired']);
+   
     Route::get('/get-applicants/{id}', [AppliedWorkController::class, 'index']);
     Route::get('/check-application-status/{id}', [AppliedWorkController::class, 'checkApplication']);
-
+    Route::post('/add-work-instruction', [MasterController::class, 'addWorkInstruction']);
+    Route::get('/get-instruction/{id}',[MasterController::class, 'getInstruction']);
 
 });
