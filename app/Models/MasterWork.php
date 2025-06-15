@@ -9,12 +9,12 @@ class MasterWork extends Model
 {
     use HasFactory;
     protected $table = 'work';
-    protected $with = ['skills'];
+    protected $with = ['skills','instrunction'];
     protected $guarded = [];
 
     public function instrunction()
     {
-        return $this->hasMany(WorkInstruction::class, 'id', 'work_id');
+        return $this->hasMany(WorkInstruction::class,  'work_id','id');
     }
 
     public function skills()

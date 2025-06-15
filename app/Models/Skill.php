@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkInstruction extends Model
+class Skill extends Model
 {
-    use HasFactory;
-    protected $table = 'work_instruction';
+   use HasFactory;
    
-    protected $guarded = [];
+    protected $table = 'skills';
+      protected $guarded = [];
 }
