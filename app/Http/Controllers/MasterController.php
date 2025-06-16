@@ -92,14 +92,14 @@ class MasterController extends Controller
 
     public function getInstruction($id)
     {
-       
+
         $query = WorkInstruction::query();
         if ($id) {
             $query->where('work_id', $id);
         }
         $data = $query->get();
-      
-        $work = MasterWork::query()->where('id', $id)->first();
+
+        $work = MasterWork::query()->where('id', $id)->with('client', 'assigned')->first();
 
         return response()->json(['data' => $data, 'work' => $work], 200);
     }
@@ -123,14 +123,31 @@ class MasterController extends Controller
 
         return response()->json(['message' => 'Instruction added successfully.'], 201);
     }
+    public function updateProgress(Request $request, $id)
+    {
+        $instruction = WorkInstruction::findOrFail($id);
 
+        $request->validate([
+            'status' => 'required|in:1,2,3',
+            'comment' => 'nullable|string',
+        ]);
+
+        $instruction->status = $request->status;
+        $instruction->comment = $request->comment;
+        $instruction->save();
+
+        return response()->json([
+            'message' => 'Instruction progress updated successfully.',
+            'data' => $instruction,
+        ]);
+    }
     public function hired(Request $request)
     {
         $applicant = $request->applied_id;
         $work = $request->work_id;
-        
+
         $works = MasterWork::where('id', $work);
-    
+
         if (!$work) {
             return response()->json('error no work found', 401);
         }

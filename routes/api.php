@@ -31,7 +31,8 @@ Route::middleware('auth.token')->group(function () {
      Route::post('store-profile-pic', [UserController::class, 'store_picture']);
     Route::post('/store-proposal', [AppliedWorkController::class, 'store']);
          Route::post('hire-applicant', [MasterController::class, 'hired']);
-   
+   Route::put('/instruction-progress/{id}', [MasterController::class, 'updateProgress']);
+
     Route::get('/get-applicants/{id}', [AppliedWorkController::class, 'index']);
     Route::get('/check-application-status/{id}', [AppliedWorkController::class, 'checkApplication']);
     Route::post('/add-work-instruction', [MasterController::class, 'addWorkInstruction']);

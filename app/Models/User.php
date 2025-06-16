@@ -16,6 +16,7 @@ class User extends Authenticatable
     protected $guarded = [];
     protected $connection = 'mysql';
     protected $table = 'users';
+    protected $with = ['profile'];
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +27,7 @@ class User extends Authenticatable
         return $this->hasOne(UserDetails::class, 'id', 'user_id');
     }
     public function profile(){
-          return $this->hasOne(Profile::class, 'id', 'user_id');
+          return $this->hasOne(Profile::class,  'user_id','id');
     }
     public function skills(){
           return $this->hasMany(Skill::class, 'id', 'user_id');
