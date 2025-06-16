@@ -25,4 +25,10 @@ class MasterWork extends Model
     {
         return $this->hasMany(AppliedWork::class, 'work_id', 'id');
     }
+    public function assigned(){
+        return $this->belongsTo(User::class,'assigned_user_id','id');
+    }
+    public function client(){
+        return $this->belongsTo(User::class,'client_id','id');
+    }
 }
